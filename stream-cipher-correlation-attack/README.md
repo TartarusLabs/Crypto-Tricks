@@ -1,6 +1,6 @@
 # Stream Cipher Correlation Attack PoC
 
-If you are new to cryptanalysis I recommend reading the four references listed at the bottom of this page before trying to follow any of this. They can be found online as PDFs if you just copy the papers' titles into a search engine.
+If you are new to cryptanalysis I recommend reading the four references listed at the bottom of this page before trying to follow any of this. They can be found online as PDFs if you copy and paste the papers' titles into a search engine.
 
 
 ### The Stream Cipher (stream-cipher.py)
@@ -14,9 +14,13 @@ The truth table for the combining function is shown below.
 The sizes of the four LFSRs and their tap sequences are given below:
 
 LFSR1: 7-bit register, tap={4, 7}
+
 LFSR2: 11-bit register, tap={3, 8, 9, 11}
+
 LFSR3: 13-bit register, tap={8, 11, 12, 13}
+
 LFSR4: 15-bit register, tap={14, 15}
+
 
 In the above, bit n is the least significant bit of the n-bit register. This is the bit that forms an input into the combining function when the register is shifted. This bit is always part of the corresponding tap sequence as the LFSRs have maximal periods.
 
@@ -39,24 +43,26 @@ To implement the Siegenthaler divide and conquer attack [1] it was first necessa
 
 I wrote a python script siegenthaler.py that generates a linear approximation table [4] of the combining function, in much the same way that an S-box is evaluated in a linear cryptanalysis attack. The script simply iterates through all 16 possible inputs to the boolean function for all 16 possible input sums and keeps track of how many times the input agrees with the output for each input sum. This table is included below:
 
-Input | Sum Bias
-----------------
-0 | 0
-1 | 0
-2 | -4
-3 | 0
-4 | 0
-5 | 0
-6 | 0
-7 | -4
-8 | -2
-9 | 2
-10 | 2
-11 | 2
-12 | -2
-13 | 2
-14 | -2
-15 | -2
+
+Input	| Sum Bias
+------	| --------
+0	| 0
+1	| 0
+2	| -4
+3	| 0
+4	| 0
+5	| 0
+6	| 0
+7	| -4
+8	| -2
+9	| 2
+10	| 2
+11	| 2
+12	| -2
+13	| 2
+14	| -2
+15	| -2
+
 
 If you calculate a Walsh-Hadamard spectrum of the combining function it can be seen that each value in that is exactly double the value of the bias at the equivalent point in the above linear approximation table. Hence the same information regarding correlations is revealed by both.
 
@@ -81,9 +87,13 @@ LFSR2: 474
 So in conclusion we have the following initial states for the four LFSRs.
 
 LFSR1: 27
+
 LFSR2: 474
+
 LFSR3: 991
+
 LFSR4: 3254
+
 
 This divide and conquer attack reduced the complexity of finding the key from a worst case of checking 2 ^ (7+11+13+15) = 2 ^ 46 keys down to a worst case of checking (2 ^ 7) + (2 ^ 11) + (2 ^ 13) + (2 ^ 15) = 43136 keys.
 
