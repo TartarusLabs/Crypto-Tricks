@@ -38,8 +38,11 @@ When the covert-read.py script is executed with default settings it first enters
 The covert-read.py process also has functionality to allow it to measure and report the bandwidth of the covert channel. As soon as it detects the creation of the /tmp/gconfd-05 file it saves the current time. Once the file deletion is detected and the message is therefore finished the process saves the current time again. The difference between the two times of course tells us how long it took to transmit the message. The number of bits transmitted divided by this time gives us bandwidth. Running the two scripts under two separate user accounts on the test server with the secret.txt file gave the output below from covert-read.py.
 
 `Time taken (seconds): 0.159503221512`
+
 `Data transfered (bits): 1920`
+
 `Bandwidth (bits per second): 12037.3744292`
+
 
 The empirical assessment of the channel's bandwidth is therefore 12040 bits per second, rounded to the nearest 10 bps. According to [9] any covert channel with more than 100 bps of capacity is a serious threat to the security of a system.
 
