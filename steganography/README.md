@@ -33,16 +33,22 @@ For example, below we see what was typed to run the program in embed mode with a
 `./stego.py -m embed -p m0uNta1n123 -i in.png -t secret.txt`
 
 `Data hidden (including 24 bit header we add): 64185 bits.`
+
 `Total capacity of cover image: 145200 bits.`
+
 `Utilisation: 44.20%`
+
 `Saving resulting stego image to out.png`
+
 
 Viewing out.png reveals that it looks exactly like in.png. There are no differences perceivable to the naked eye. We would then run it in recover mode with the same password and out.png as the image to recover the hidden text.
 
 `./stego.py -m recover -p m0uNta1n123 -i out.png`
 
 `Data extracted (excluding 24 bit header): 64161 bits.`
+
 `Saving recovered hidden message to out.txt`
+
 
 Checking the contents of the out.txt file now reveals the message that was in secret.txt which confirms that the system is working. If an incorrect password is used it can also be seen that random nonsense is the result instead.
 
@@ -51,8 +57,10 @@ Checking the contents of the out.txt file now reveals the message that was in se
 
 Mean Square Error (MSE) and Peak Signal to Noise Ratio (PSNR) are two measures of image quality degradation that can be calculated when comparing the stego image to the original cover image [6]. I have implemented these two measures in the python script steganalyse.py. When executed to compare the in.png cover image to the resulting out.png stego-image the following values are calculated.
 
-Mean Square Error (MSE): 0.165909090909
-Peak Signal to Noise Ratio (PSNR): 55.9660974699
+`Mean Square Error (MSE): 0.165909090909`
+
+`Peak Signal to Noise Ratio (PSNR): 55.9660974699`
+
 
 Keeping a low embedding rate is helpful for avoiding detection [4]. For this reason an improved embedding scheme would compress the message text file before performing the actual stego embedding. The less message bits we have to hide, the better. Another way of achieving this would be to use batch steganography where a message is spread over multiple cover images as necessary to maintain some maximum embedding rate in each each image [5]. Either of these modifications to the presented design, or indeed combining both, would reduce the disruption caused.
 
