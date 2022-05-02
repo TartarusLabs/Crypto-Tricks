@@ -36,11 +36,11 @@ The code in the innermost for loop starts by doing a lookup on the current input
 
 The resulting Linear Approximation Table for the S-box is below. This is a tabulated form of the output from linear-cryptanalysis.py. The rows are the input sums and the columns are the output sums.
 
-![Linear Approximation Table](https://github.com/TartarusLabs/Crypto-Tricks/block-cipher-linear-cryptanalysis/blob/main/linear-approximation-table.jpg?raw=true)
+![Linear Approximation Table](https://github.com/TartarusLabs/Crypto-Tricks/blob/main/block-cipher-linear-cryptanalysis/linear-approximation-table.jpg?raw=true)
 
 After generating the linear approximation table, I manually calculated three different three round approximations for use in the linear cryptanalysis attack [1]. The specific approximations used at each round along with the specific S-boxes involved are shown in the table below. The numbers in parentheses after each S box are the input sum followed by the output sum, both given in decimal.
 
-![Approximations](https://github.com/TartarusLabs/Crypto-Tricks/block-cipher-linear-cryptanalysis/blob/main/approximations.jpg?raw=true)
+![Approximations](https://github.com/TartarusLabs/Crypto-Tricks/blob/main/block-cipher-linear-cryptanalysis/approximations.jpg?raw=true)
 
 I will now detail the derivation of the final three round approximations based on the table above. This also includes the calculation of the final biases based on the piling up lemma [1].
 
@@ -125,8 +125,11 @@ As the XOR of all the key bits is fixed we remove them, leaving the final three 
 So in summary the three approximations that I used to carry out my linear cryptanalysis attack are as follows.
 
 Approximation1 to find bits K5,1 to K5,8:	P1 + U4,2 + U4,6 = 0 with probability 9/16
+
 Approximation2 to find bits K5,13 to K5,16:	P6 + P7 + P8 + U4,5 + U4,13 = 0 with probability 31/64
+
 Approximation3 to find bits K5,9 to K5,12:	P13 + P15 + U4,4 + U4,12 = 0 with probability 15/32
+
 
 As already mentioned, by the time we use approximations 2 and 3 we already know 4 of the 8 key bits that they each target and hence only need to iterate over the remaining, unknown 4 bits. This attack therefore allows us to find all 16 bits of subkey5 by checking only (2 ^ 8) + (2 ^ 4) + (2 ^ 4) = 288 different keys. This is more efficient than implementing the attack using only two approximations and therefore having to check (2 ^ 8) + (2 ^ 8) = 512 different keys.
 
